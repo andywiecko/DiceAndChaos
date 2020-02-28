@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
         /*/
 
 
-
+        
 
 
         RollADice();
@@ -87,6 +87,7 @@ public class GameController : MonoBehaviour
         if (trackCamera)
             mainCamera.transform.position = specimen.transform.position - initialCameraDistance;
         velocity = rb.velocity;
+
         if (velocity == Vector3.zero && !messageRecived)
         {
             Debug.Log("Body stopped!");
@@ -106,6 +107,7 @@ public class GameController : MonoBehaviour
 
 
             }
+
             Debug.Log($"You roll { maxname }!");
             //Logger.Save("test");
 
