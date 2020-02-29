@@ -46,11 +46,11 @@ public class GameController : MonoBehaviour
         rb.maxAngularVelocity = 100f;
 
 
-        /*
+        //*
         Time.maximumParticleDeltaTime = 0.03f;
         Time.timeScale = 30f;
         Time.maximumDeltaTime = 0.01f;
-        /*/
+        //*/
 
 
         
@@ -109,8 +109,30 @@ public class GameController : MonoBehaviour
             }
 
             Debug.Log($"You roll { maxname }!");
-            //Logger.Save("test");
+            Vector3 angVel = initialAngularVelocity;
+            string result = $"{angVel.x} {angVel.y} {angVel.z} { maxname }";
+            Debug.Log(result);
+            Logger.Save(result);
+            if (angVel.y <= 5.0f) Simulate();
 
         }
     }
+
+    public void Simulate()
+    {
+
+        Vector3 angVel = initialAngularVelocity;
+        if (angVel.x <= 5.0f)
+            angVel.x += 0.01f;
+        else
+        {
+            angVel.y += 0.01f;
+            angVel.x = -5.0f;
+        }
+        initialAngularVelocity = angVel;
+        RollADice();
+    }
+
 }
+
+

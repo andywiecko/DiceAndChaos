@@ -312,7 +312,7 @@ MonoBehaviour:
     type: 3}
   initialVelocity: 10
   velocity: {x: 0, y: 0, z: 0}
-  initialAngularVelocity: {x: 0, y: 0, z: 2}
+  initialAngularVelocity: {x: -5, y: -5, z: 2}
   trackCamera: 0
   mainCamera: {fileID: 963194227}
 --- !u!4 &418043731
