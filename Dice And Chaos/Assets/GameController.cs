@@ -26,19 +26,25 @@ public class GameController : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
 
+    [SerializeField]
+    public InitialConditions initialConditions;
 
     [SerializeField]
     public bool trackCamera = false;
     public Camera mainCamera;
     private Vector3 initialCameraDistance;
 
+    /// <summary>
+    /// flag to display message only once
+    /// </summary>
+    bool messageRecived = true;
 
-
-    bool messageRecived = false;
-
-
-    
     void Start()
+    {
+        Initialization();
+    }
+
+    void Initialization()
     {
         Vector3 position = gameObject.transform.position;
         specimen = Instantiate(specimen, position, Quaternion.identity);
@@ -46,120 +52,74 @@ public class GameController : MonoBehaviour
         initialPosition = specimen.transform.position;
         initialRotation = specimen.transform.rotation;
         rb = specimen.GetComponent<Rigidbody>();
+        rb.useGravity = false;
         rb.maxAngularVelocity = 100f;
+    }
 
 
-        /*
-        Time.maximumParticleDeltaTime = 0.03f;
-        Time.timeScale = 100f;
-        Time.maximumDeltaTime = 0.01f;
-        */
-
-
-        
-
-
-        RollADice();
-
-
-
-
+    public void RestoreInitialConditions()
+    {
+        specimen.transform.position = transform.position;
+        specimen.transform.rotation = transform.rotation;
+        rb.velocity = new Vector3(initialVelocity, 0, 0);
+        rb.angularVelocity = initialAngularVelocity;
     }
 
     public void RollADice()
     {
-        //specimen.transform.position = position;
-
-        specimen.transform.position = initialPosition;
-        specimen.transform.rotation = initialRotation;
-
-        rb.velocity = new Vector3(initialVelocity, 0, 0);
-        rb.angularVelocity = initialAngularVelocity;
-
+        RestoreInitialConditions();
+        rb.useGravity = true;
         messageRecived = false;
-
-
-
-        ParameterRange vxRange = new ParameterRange(0.0f, 1.0f, 0.25f);
-        ParameterRange vyRange = new ParameterRange(0.0f, 2.0f, 0.5f);
-        ParameterRange vzRange = new ParameterRange(0.0f, 1.0f, 0.25f);
-
-        List<ParameterRange> ranges = new List<ParameterRange>
-        {
-            vxRange,
-            vyRange,
-            vzRange
-        };
-
-        Parameters parameters = new Parameters(ranges);
-
-        string log = "\n";
-        foreach(List<float> current in parameters)
-        {
-            string row = "";
-            foreach(float value in current)
-            {
-                row += value.ToString() + "\t";
-            }
-            log += row + "\n";
-        }
-        Debug.Log(log);
-        
     }
 
+    /// <summary>
+    /// Transforming camera position to follow the specimen object
+    /// </summary>
+    void CameraTracker()
+    {
+        if (trackCamera)
+            mainCamera.transform.position = specimen.transform.position - initialCameraDistance;
+    }
 
+    string FindHighestFace(Transform transfrom)
+    {
+        float maxheight = -1f;
+        string maxname = "";
+        // iterate over all specimen "faces"
+        foreach (Transform child in transform)
+        {
+            float childheigth = child.transform.position.y;
+
+            if (maxheight < childheigth)
+            {
+                maxheight = childheigth;
+                maxname = child.name;
+            }
+
+
+        }
+        return maxname;
+    }
+
+    void Propagate()
+    {
+        if (velocity == Vector3.zero && !messageRecived)
+        {
+            Debug.Log("Body stopped!");
+            messageRecived = true;
+
+            string maxname = FindHighestFace(specimen.transform);
+            Debug.Log($"You roll { maxname }!");
+
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (trackCamera)
-            mainCamera.transform.position = specimen.transform.position - initialCameraDistance;
+        CameraTracker();
         velocity = rb.velocity;
-
-        if (velocity == Vector3.zero && !messageRecived)
-        {
-            Debug.Log("Body stopped!");
-            messageRecived = !messageRecived;
-
-            float maxheight = -1f;
-            string maxname = "";
-            foreach (Transform child in specimen.transform)
-            {
-                float childheigth = child.transform.position.y;
-
-                if (maxheight < childheigth)
-                {
-                    maxheight = childheigth;
-                    maxname = child.name;
-                }
-
-
-            }
-
-            Debug.Log($"You roll { maxname }!");
-            /*
-            Vector3 angVel = initialAngularVelocity;
-            string result = $"{angVel.x} {angVel.y} {angVel.z} { maxname }";
-            Debug.Log(result);
-            Logger.Save(result);
-            if (angVel.y <= 5.0f) Simulate();
-            */
-        }
-    }
-
-    public void Simulate()
-    {
-
-        Vector3 angVel = initialAngularVelocity;
-        if (angVel.x <= 5.0f)
-            angVel.x += 0.01f;
-        else
-        {
-            angVel.y += 0.01f;
-            angVel.x = -5.0f;
-        }
-        initialAngularVelocity = angVel;
-        RollADice();
+        Propagate();
     }
 
 }
