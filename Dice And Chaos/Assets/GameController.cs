@@ -1,127 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Linq;
 
-public class GameController : MonoBehaviour
+namespace DiceAndChaos
 {
-    /// <summary>
-    /// specimen object to test
-    /// </summary>
-    public GameObject specimen = null;
 
-    [SerializeField]
-    public float initialVelocity = 50;
-
-    private Rigidbody rb = null;
-
-    [SerializeField]
-    private Vector3 velocity;
-
-    [SerializeField]
-    private Vector3 initialAngularVelocity;
-
-    private Vector3 position;
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
-
-    [SerializeField]
-    public InitialConditions initialConditions;
-
-    [SerializeField]
-    public bool trackCamera = false;
-    public Camera mainCamera;
-    private Vector3 initialCameraDistance;
-
-    /// <summary>
-    /// flag to display message only once
-    /// </summary>
-    bool messageRecived = true;
-
-    void Start()
+    public class GameController : MonoBehaviour
     {
-        Initialization();
-    }
+        public InitialConditions initialConditions;
+        public GameObject specimen;
 
-    void Initialization()
-    {
-        Vector3 position = gameObject.transform.position;
-        specimen = Instantiate(specimen, position, Quaternion.identity);
-        initialCameraDistance = position - mainCamera.transform.position;
-        initialPosition = specimen.transform.position;
-        initialRotation = specimen.transform.rotation;
-        rb = specimen.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.maxAngularVelocity = 100f;
-    }
+        public bool lockSpecimen = false;
+        private GameObject activeSpecimen = null;
+        private Rigidbody rb = null;
 
-
-    public void RestoreInitialConditions()
-    {
-        specimen.transform.position = transform.position;
-        specimen.transform.rotation = transform.rotation;
-        rb.velocity = new Vector3(initialVelocity, 0, 0);
-        rb.angularVelocity = initialAngularVelocity;
-    }
-
-    public void RollADice()
-    {
-        RestoreInitialConditions();
-        rb.useGravity = true;
-        messageRecived = false;
-    }
-
-    /// <summary>
-    /// Transforming camera position to follow the specimen object
-    /// </summary>
-    void CameraTracker()
-    {
-        if (trackCamera)
-            mainCamera.transform.position = specimen.transform.position - initialCameraDistance;
-    }
-
-    string FindHighestFace(Transform transfrom)
-    {
-        float maxheight = -1f;
-        string maxname = "";
-        // iterate over all specimen "faces"
-        foreach (Transform child in transform)
+        private void SetInitialConditions()
         {
-            float childheigth = child.transform.position.y;
+            InitialConditionsSetter.Set(activeSpecimen, initialConditions);
+        }
 
-            if (maxheight < childheigth)
+        public void Start()
+        {
+            initialConditions = new InitialConditions()
             {
-                maxheight = childheigth;
-                maxname = child.name;
-            }
-
-
+                Position = transform.position,
+                Velocity = new Vector3(10, 0, 0)
+            };
         }
-        return maxname;
-    }
 
-    void Propagate()
-    {
-        if (velocity == Vector3.zero && !messageRecived)
+        public void Spawn()
         {
-            Debug.Log("Body stopped!");
-            messageRecived = true;
-
-            string maxname = FindHighestFace(specimen.transform);
-            Debug.Log($"You roll { maxname }!");
-
+            Destroy(activeSpecimen);
+            lockSpecimen = false;
+            activeSpecimen = SpecimenSpawner.Spawn(specimen, transform);
+            SetInitialConditions();
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CameraTracker();
-        velocity = rb.velocity;
-        Propagate();
+        public void Roll()
+        {
+            lockSpecimen = true;
+            SetInitialConditions();
+            SpecimenRoller.Roll(activeSpecimen);
+        }
+
+        public void Rotate(float x, float y, float z)
+        {
+            initialConditions.Rotation = Quaternion.Euler(x, y, z);
+            if(!lockSpecimen) SetInitialConditions();
+        }
+
+
+        void Update()
+        {
+            SpecimenStopper.IsStopped(activeSpecimen);
+        }
+
     }
 
 }
-
-
