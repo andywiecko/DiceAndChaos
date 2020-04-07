@@ -9,21 +9,28 @@ namespace DiceAndChaos
     {
 
         public GameObject arrowAsset;
-        private GameObject arrow;
+        private GameObject arrow = null;
 
         private void Start()
         {
-            arrow = Instantiate(arrowAsset, transform);
-           // arrow.SetActive(false);
+            arrow = (GameObject)Instantiate(arrowAsset, transform);
+            Reset();
         }
 
         public void SetVelocityArrow(Vector3 velocity)
         {
-            arrow.transform.rotation = Quaternion.LookRotation(velocity);
-            arrow.transform.localScale = new Vector3(1,1,velocity.magnitude);
+            if (arrow != null)
+            {
+                arrow.SetActive(true);
+                arrow.transform.rotation = Quaternion.LookRotation(velocity);
+                arrow.transform.localScale = new Vector3(1, 1, 0.334f * velocity.magnitude);
+            }
         }
 
-
+        public void Reset()
+        {
+            arrow.SetActive(false);
+        }
 
     }
 

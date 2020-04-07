@@ -14,7 +14,7 @@ namespace DiceAndChaos
         private Specimen specimen = null;
         private InitialConditions initialConditions;
 
-        public ArrowViewer arrowViewer;
+        private ArrowViewer arrowViewer;
 
         private void SetInitialConditions()
         {
@@ -23,6 +23,7 @@ namespace DiceAndChaos
 
         public void Start()
         {
+            arrowViewer = GetComponent<ArrowViewer>();
             specimen = new Specimen(specimenGameObject);
             initialConditions = new InitialConditions() { Position = transform.position };
         }
@@ -37,6 +38,7 @@ namespace DiceAndChaos
         public void Roll()
         {
             SpecimenStopper.Reset();
+            arrowViewer.Reset();
             SetInitialConditions();
             SpecimenRoller.Roll(specimen);
         }
@@ -54,6 +56,16 @@ namespace DiceAndChaos
             {
                 SetInitialConditions();
                 arrowViewer.SetVelocityArrow(initialConditions.Velocity);
+            }
+        }
+
+        public void SetAngularVelocity(float x, float y, float z)
+        {
+            initialConditions.AngularVelocity = new Vector3(x, y, z);
+            if (!specimen.IsActive)
+            {
+                SetInitialConditions();
+                //arrowViewer.SetVelocityArrow(initialConditions.Velocity);
             }
         }
 

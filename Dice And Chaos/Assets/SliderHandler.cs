@@ -18,13 +18,19 @@ namespace DiceAndChaos
         public Slider velYSlider;
         public Slider velZSlider;
 
-        public GameController gameController;
-        public float value;
+        // angular velocity
+        public Slider angVelXSlider;
+        public Slider angVelYSlider;
+        public Slider angVelZSlider;
+
+        private GameController gameController;
 
         private void Start()
         {
+            gameController = GetComponent<GameController>();
             Rotate();
             SetVelocity();
+            SetAngularVelocity();
         }
 
         public void Rotate()
@@ -43,6 +49,14 @@ namespace DiceAndChaos
             gameController.SetVelocity(x, y, z);
         }
 
+        public void SetAngularVelocity()
+        {
+            float x = angVelXSlider.value;
+            float y = angVelYSlider.value;
+            float z = angVelZSlider.value;
+            gameController.SetAngularVelocity(x, y, z);
+
+        }
 
     }
 
