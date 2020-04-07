@@ -21,6 +21,12 @@ namespace DiceAndChaos
         public GameController gameController;
         public float value;
 
+        private void Start()
+        {
+            Rotate();
+            SetVelocity();
+        }
+
         public void Rotate()
         {
             float x = rotXSlider.value;
@@ -34,7 +40,7 @@ namespace DiceAndChaos
             float x = velXSlider.value;
             float y = velYSlider.value;
             float z = velZSlider.value;
-            //gameController.SetVelocity(x, y, z);
+            gameController.SetVelocity(x, y, z);
         }
 
 

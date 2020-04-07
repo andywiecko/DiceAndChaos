@@ -14,6 +14,8 @@ namespace DiceAndChaos
         private Specimen specimen = null;
         private InitialConditions initialConditions;
 
+        public ArrowViewer arrowViewer;
+
         private void SetInitialConditions()
         {
             specimen.InitialConditions = initialConditions;
@@ -22,11 +24,7 @@ namespace DiceAndChaos
         public void Start()
         {
             specimen = new Specimen(specimenGameObject);
-            initialConditions = new InitialConditions()
-            {
-                Position = transform.position,
-                Velocity = new Vector3(10, 0, 0)
-            };
+            initialConditions = new InitialConditions() { Position = transform.position };
         }
 
         public void Spawn()
@@ -46,9 +44,18 @@ namespace DiceAndChaos
         public void Rotate(float x, float y, float z)
         {
             initialConditions.Rotation = Quaternion.Euler(x, y, z);
-            if(!specimen.IsActive) SetInitialConditions();
+            if (!specimen.IsActive) SetInitialConditions();
         }
 
+        public void SetVelocity(float x, float y, float z)
+        {
+            initialConditions.Velocity = new Vector3(x, y, z);
+            if (!specimen.IsActive)
+            {
+                SetInitialConditions();
+                arrowViewer.SetVelocityArrow(initialConditions.Velocity);
+            }
+        }
 
         void Update()
         {
