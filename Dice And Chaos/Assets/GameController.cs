@@ -7,20 +7,23 @@ namespace DiceAndChaos
 
     public class GameController : MonoBehaviour
     {
-        public InitialConditions initialConditions;
-        public GameObject specimen;
+        /// <summary>
+        /// Specimen GameObject to spawn
+        /// </summary>
+        public GameObject specimenGameObject;
 
-        public bool lockSpecimen = false;
-        private GameObject activeSpecimen = null;
-        private Rigidbody rb = null;
+        private GameObject specimenGameObjectRef = null;
+        private Specimen specimen = null;
+        private InitialConditions initialConditions;
 
         private void SetInitialConditions()
         {
-            InitialConditionsSetter.Set(activeSpecimen, initialConditions);
+            InitialConditionsSetter.Set(specimen, initialConditions);
         }
 
         public void Start()
         {
+            specimen = new Specimen(specimenGameObject);
             initialConditions = new InitialConditions()
             {
                 Position = transform.position,
@@ -30,29 +33,30 @@ namespace DiceAndChaos
 
         public void Spawn()
         {
-            Destroy(activeSpecimen);
-            lockSpecimen = false;
-            activeSpecimen = SpecimenSpawner.Spawn(specimen, transform);
+            //lockSpecimen = false;
+            Destroy(specimenGameObjectRef);
+            specimenGameObjectRef = SpecimenSpawner.Spawn(ref specimen, transform);
+            
             SetInitialConditions();
         }
 
         public void Roll()
         {
-            lockSpecimen = true;
+            //lockSpecimen = true;
             SetInitialConditions();
-            SpecimenRoller.Roll(activeSpecimen);
+            SpecimenRoller.Roll(specimen);
         }
 
         public void Rotate(float x, float y, float z)
         {
             initialConditions.Rotation = Quaternion.Euler(x, y, z);
-            if(!lockSpecimen) SetInitialConditions();
+            //if(!lockSpecimen) SetInitialConditions();
         }
 
 
         void Update()
         {
-            SpecimenStopper.IsStopped(activeSpecimen);
+            //SpecimenStopper.IsStopped(activeSpecimen);
         }
 
     }

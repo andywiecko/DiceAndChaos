@@ -6,11 +6,10 @@ namespace DiceAndChaos
 {
     public class SpecimenRoller
     {
-        static public void Roll(GameObject specimen)
+        static public void Roll(Specimen specimen)
         {
-            Rigidbody rb = specimen.GetComponent<Rigidbody>();
-            rb.useGravity = true;
-            rb.isKinematic = false;
+            specimen.Rigidbody.useGravity = true;
+            specimen.Rigidbody.isKinematic = false;
         }
     }
 }

@@ -7,14 +7,17 @@ namespace DiceAndChaos
 {
     public class SpecimenSpawner : MonoBehaviour
     {
-        static public GameObject Spawn(GameObject specimen, Transform transform)
+        static public GameObject Spawn(ref Specimen specimen, Transform transform)
         {
-            GameObject objectToSpawn = Instantiate(specimen, transform.position,transform.rotation);
-            Rigidbody rb = objectToSpawn.GetComponent<Rigidbody>();
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            rb.maxAngularVelocity = 100f;
-            return objectToSpawn;
+            GameObject go = Instantiate(specimen.GameObject, transform.position,transform.rotation);
+            go.name = specimen.GameObject.name;
+            Specimen newSpecimen = new Specimen(go);
+            specimen = newSpecimen;
+            specimen.GameObject = go;
+            specimen.Rigidbody.isKinematic = true;
+            specimen.Rigidbody.useGravity = false;
+            specimen.Rigidbody.maxAngularVelocity = 100f;
+            return go;
         }
 
     }

@@ -7,15 +7,14 @@ namespace DiceAndChaos
 
     public class Specimen
     {
-        private GameObject gameObject;
-        private Rigidbody rigidbody;
+        public Rigidbody Rigidbody { get; set; }
+        public bool IsActive { get; set; }
+        public GameObject GameObject { get; set; } = null;
+        public InitialConditions InitialConditions { get; set; }
 
-        public GameObject GameObject { get => gameObject; set => gameObject = value; }
-        public Rigidbody Rigidbody { get => rigidbody; set => rigidbody = value; }
-
-        public Specimen(GameObject _gameObject)
+        public Specimen(GameObject gameObject)
         {
-            GameObject = _gameObject;
+            GameObject = gameObject;
             Rigidbody = GameObject.GetComponent<Rigidbody>();
         }
 

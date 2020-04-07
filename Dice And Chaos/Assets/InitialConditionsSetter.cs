@@ -7,13 +7,12 @@ namespace DiceAndChaos
 
     public class InitialConditionsSetter
     {
-        public static void Set(GameObject specimen, InitialConditions initialConditions)
+        public static void Set(Specimen specimen,InitialConditions initialConditions)
         {
-            specimen.transform.position = initialConditions.Position;
-            specimen.transform.rotation = initialConditions.Rotation;
-            Rigidbody rb = specimen.GetComponent<Rigidbody>();
-            rb.velocity = initialConditions.Velocity;
-            rb.angularVelocity = initialConditions.AngularVelocity;
+            specimen.GameObject.transform.position = initialConditions.Position;
+            specimen.GameObject.transform.rotation = initialConditions.Rotation;
+            specimen.Rigidbody.velocity = initialConditions.Velocity;
+            specimen.Rigidbody.angularVelocity = initialConditions.AngularVelocity;
         }
 
     }
