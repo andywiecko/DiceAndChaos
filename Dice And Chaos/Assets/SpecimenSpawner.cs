@@ -17,6 +17,7 @@ namespace DiceAndChaos
             specimen.Rigidbody.isKinematic = true;
             specimen.Rigidbody.useGravity = false;
             specimen.Rigidbody.maxAngularVelocity = 100f;
+            specimen.IsActive = false;
             return go;
         }
 

@@ -8,6 +8,7 @@ namespace DiceAndChaos
     {
         static public void Roll(Specimen specimen)
         {
+            specimen.IsActive = true;
             specimen.Rigidbody.useGravity = true;
             specimen.Rigidbody.isKinematic = false;
         }

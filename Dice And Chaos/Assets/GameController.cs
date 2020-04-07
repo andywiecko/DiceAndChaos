@@ -7,9 +7,7 @@ namespace DiceAndChaos
 
     public class GameController : MonoBehaviour
     {
-        /// <summary>
-        /// Specimen GameObject to spawn
-        /// </summary>
+        // object to spawn
         public GameObject specimenGameObject;
 
         private GameObject specimenGameObjectRef = null;
@@ -18,7 +16,7 @@ namespace DiceAndChaos
 
         private void SetInitialConditions()
         {
-            InitialConditionsSetter.Set(specimen, initialConditions);
+            specimen.InitialConditions = initialConditions;
         }
 
         public void Start()
@@ -33,16 +31,14 @@ namespace DiceAndChaos
 
         public void Spawn()
         {
-            //lockSpecimen = false;
             Destroy(specimenGameObjectRef);
             specimenGameObjectRef = SpecimenSpawner.Spawn(ref specimen, transform);
-            
             SetInitialConditions();
         }
 
         public void Roll()
         {
-            //lockSpecimen = true;
+            SpecimenStopper.Reset();
             SetInitialConditions();
             SpecimenRoller.Roll(specimen);
         }
@@ -50,13 +46,13 @@ namespace DiceAndChaos
         public void Rotate(float x, float y, float z)
         {
             initialConditions.Rotation = Quaternion.Euler(x, y, z);
-            //if(!lockSpecimen) SetInitialConditions();
+            if(!specimen.IsActive) SetInitialConditions();
         }
 
 
         void Update()
         {
-            //SpecimenStopper.IsStopped(activeSpecimen);
+            SpecimenStopper.IsStopped(specimen);
         }
 
     }

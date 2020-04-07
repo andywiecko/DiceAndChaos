@@ -2857,9 +2857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1536af5138e0f54d90e712f5336b99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specimen: {fileID: 3242797338500437797, guid: 2c566313098daf444a6d48133ee98061,
+  specimenGameObject: {fileID: 3242797338500437797, guid: 2c566313098daf444a6d48133ee98061,
     type: 3}
-  lockSpecimen: 0
 --- !u!114 &485279205
 MonoBehaviour:
   m_ObjectHideFlags: 0

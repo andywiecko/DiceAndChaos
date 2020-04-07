@@ -10,7 +10,20 @@ namespace DiceAndChaos
         public Rigidbody Rigidbody { get; set; }
         public bool IsActive { get; set; }
         public GameObject GameObject { get; set; } = null;
-        public InitialConditions InitialConditions { get; set; }
+
+        InitialConditions initialConditions;
+        public InitialConditions InitialConditions
+        {
+            get => initialConditions;
+            set
+            {
+                initialConditions = value;
+                GameObject.transform.position = InitialConditions.Position;
+                GameObject.transform.rotation = InitialConditions.Rotation;
+                Rigidbody.velocity = InitialConditions.Velocity;
+                Rigidbody.angularVelocity = InitialConditions.AngularVelocity;
+            }
+        }
 
         public Specimen(GameObject gameObject)
         {
