@@ -1320,7 +1320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23572b7708da8d45a998b9578eec1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowAsset: {fileID: 7147024884689302077, guid: 79dca4168a04eae48b5f77bcb7cf4da8,
+  velocityArrowAsset: {fileID: 7147024884689302077, guid: 79dca4168a04eae48b5f77bcb7cf4da8,
+    type: 3}
+  angularVelocityArrowAsset: {fileID: 7147024884689302077, guid: 77133a6353cceea4fb1bc1eaa70e0c54,
     type: 3}
 --- !u!1 &516618023
 GameObject:

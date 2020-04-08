@@ -28,6 +28,11 @@ namespace DiceAndChaos
         private void Start()
         {
             gameController = GetComponent<GameController>();
+            SetSliders();
+        }
+
+        public void SetSliders()
+        {
             Rotate();
             SetVelocity();
             SetAngularVelocity();

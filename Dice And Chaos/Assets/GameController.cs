@@ -33,6 +33,9 @@ namespace DiceAndChaos
             Destroy(specimenGameObjectRef);
             specimenGameObjectRef = SpecimenSpawner.Spawn(ref specimen, transform);
             SetInitialConditions();
+            arrowViewer.SetArrowsActive(true);
+            arrowViewer.SetVelocityArrow(initialConditions.Velocity);
+            arrowViewer.SetAngularVelocityArrow(initialConditions.AngularVelocity);
         }
 
         public void Roll()
@@ -65,7 +68,7 @@ namespace DiceAndChaos
             if (!specimen.IsActive)
             {
                 SetInitialConditions();
-                //arrowViewer.SetVelocityArrow(initialConditions.Velocity);
+                arrowViewer.SetAngularVelocityArrow(initialConditions.AngularVelocity);
             }
         }
 

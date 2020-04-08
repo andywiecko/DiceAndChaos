@@ -8,28 +8,48 @@ namespace DiceAndChaos
     public class ArrowViewer : MonoBehaviour
     {
 
-        public GameObject arrowAsset;
-        private GameObject arrow = null;
+        public GameObject velocityArrowAsset;
+        public GameObject angularVelocityArrowAsset;
+
+        private GameObject velocityArrow = null;
+        private GameObject angularVelocityArrow = null;
 
         private void Start()
         {
-            arrow = (GameObject)Instantiate(arrowAsset, transform);
+            velocityArrow = Instantiate(velocityArrowAsset, transform);
+            angularVelocityArrow = Instantiate(angularVelocityArrowAsset, transform);
             Reset();
         }
 
         public void SetVelocityArrow(Vector3 velocity)
         {
-            if (arrow != null)
+            if (velocityArrow != null)
             {
-                arrow.SetActive(true);
-                arrow.transform.rotation = Quaternion.LookRotation(velocity);
-                arrow.transform.localScale = new Vector3(1, 1, 0.334f * velocity.magnitude);
+                velocityArrow.SetActive(true);
+                velocityArrow.transform.rotation = Quaternion.LookRotation(velocity);
+                velocityArrow.transform.localScale = new Vector3(1, 1, 0.334f * velocity.magnitude);
             }
+        }
+
+        public void SetAngularVelocityArrow(Vector3 velocity)
+        {
+            if (velocityArrow != null)
+            {
+                angularVelocityArrow.SetActive(true);
+                angularVelocityArrow.transform.rotation = Quaternion.LookRotation(velocity);
+                angularVelocityArrow.transform.localScale = new Vector3(1, 1, 0.334f * velocity.magnitude);
+            }
+        }
+
+        public void SetArrowsActive(bool value = true)
+        {
+            velocityArrow.SetActive(value);
+            angularVelocityArrow.SetActive(value);
         }
 
         public void Reset()
         {
-            arrow.SetActive(false);
+            SetArrowsActive(false);
         }
 
     }
