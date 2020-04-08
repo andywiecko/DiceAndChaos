@@ -19,6 +19,6 @@ public class SliderLabelUpdater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = slider.value.ToString();
+        text.text = slider.value.ToString("0.0");
     }
 }
