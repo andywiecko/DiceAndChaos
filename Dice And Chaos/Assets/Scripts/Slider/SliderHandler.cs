@@ -23,8 +23,6 @@ namespace DiceAndChaos
         public Slider angVelYSlider;
         public Slider angVelZSlider;
 
-        //List<Slider> sliders;
-
         private GameController gameController;
 
         public void Reset()

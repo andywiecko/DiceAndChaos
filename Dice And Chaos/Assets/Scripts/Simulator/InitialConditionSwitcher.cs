@@ -7,11 +7,11 @@ namespace DiceAndChaos
 
     public class InitialConditionSwitcher
     {
-        static public void SwitchFields(FieldsHandler.Type type, float  value, InitialConditions initialConditions)
+        static public void SwitchFields(FieldsHandler.Type type, float  value, ref InitialConditions initialConditions)
         {
-            Vector3 rotation = new Vector3();
-            Vector3 velocity = new Vector3();
-            Vector3 angularVelocity = new Vector3();
+            Vector3 rotation = initialConditions.Rotation.eulerAngles;
+            Vector3 velocity = initialConditions.Velocity;
+            Vector3 angularVelocity = initialConditions.AngularVelocity;
 
             switch (type)
             {

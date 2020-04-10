@@ -17,6 +17,7 @@ namespace DiceAndChaos
         private ArrowViewer arrowViewer;
 
         private bool isInSpawn = false;
+        public string Result { get; set; } = "";
 
         private void SetInitialConditions()
         {
@@ -43,6 +44,7 @@ namespace DiceAndChaos
 
         public void Roll()
         {
+            specimen.FrameInitialization();
             isInSpawn = false;
             SpecimenStopper.Reset();
             arrowViewer.Reset();
@@ -81,10 +83,13 @@ namespace DiceAndChaos
             }
         }
 
+
+
         void Update()
         {
             if(SpecimenStopper.IsStopped(specimen))
             {
+                Result = SpecimenStopper.GetTheResult(specimen);
                 specimen.IsActive = false;
             }
         }

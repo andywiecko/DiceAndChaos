@@ -11,6 +11,10 @@ namespace DiceAndChaos
         public bool IsActive { get; set; }
         public GameObject GameObject { get; set; } = null;
 
+        const int numberOfFrames = 10;
+        public Vector3[] lastTransforms = new Vector3[numberOfFrames];
+
+
         InitialConditions initialConditions;
         public InitialConditions InitialConditions
         {
@@ -29,6 +33,15 @@ namespace DiceAndChaos
         {
             GameObject = gameObject;
             Rigidbody = GameObject.GetComponent<Rigidbody>();
+            FrameInitialization();
+        }
+
+        public void FrameInitialization()
+        {
+            for(int i=0;i<numberOfFrames;i++)
+            {
+                lastTransforms[i] = new Vector3(1f, 1f, 1f);
+            }
         }
 
     }

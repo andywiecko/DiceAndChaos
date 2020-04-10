@@ -21,15 +21,15 @@ namespace DiceAndChaos
         {
             gameController.Roll();
             readyForRun = false;
-            yield return new WaitUntil(()=>!gameController.IsActive());
+            yield return new WaitUntil(() => !gameController.IsActive());
+            Debug.Log(gameController.initialConditions + gameController.Result);
             readyForRun = true;
-            Debug.Log("done!");
         }
 
         public void StartUnpacking(Parameters parameters, List<FieldsHandler.Type> fieldTypes)
         {
             object[] parms = new object[2] { parameters, fieldTypes };
-            StartCoroutine("Unpack",parms);
+            StartCoroutine("Unpack", parms);
         }
 
         bool readyForRun = true;
@@ -37,7 +37,7 @@ namespace DiceAndChaos
         IEnumerator Unpack(object[] parms)
         {
             Parameters parameters = (Parameters)parms[0];
-            List<FieldsHandler.Type> fieldTypes = (List<FieldsHandler.Type>) parms[1];
+            List<FieldsHandler.Type> fieldTypes = (List<FieldsHandler.Type>)parms[1];
             foreach (List<float> parameter in parameters)
             {
                 InitialConditions initialConditions = gameController.initialConditions;
@@ -47,14 +47,13 @@ namespace DiceAndChaos
                 {
                     var type = item.Item1;
                     var value = item.Item2;
-                    InitialConditionSwitcher.SwitchFields(type, value, initialConditions);
-                    gameController.initialConditions = initialConditions;
-                    //yield return new WaitForSeconds(3);
-                    yield return new WaitUntil(()=>readyForRun);
-                    
-                    StartCoroutine("IERoll");
-
+                    InitialConditionSwitcher.SwitchFields(type, value, ref initialConditions);
                 }
+                gameController.initialConditions = initialConditions;
+
+                yield return new WaitUntil(() => readyForRun);
+                StartCoroutine("IERoll");
+                //Debug.Log(initialConditions);
 
             }
         }
