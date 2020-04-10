@@ -21,6 +21,18 @@ namespace DiceAndChaos
             
         }
 
+        public override string ToString()
+        {
+            
+            string ret = "";
+            ret += $"{Position.x} {Position.y} {Position.z} ";
+            ret += $"{Rotation.eulerAngles.x} {Rotation.eulerAngles.y} {Rotation.eulerAngles.z} ";
+            ret += $"{Velocity.x} {Velocity.y} {Velocity.z} ";
+            ret += $"{AngularVelocity.x} {AngularVelocity.y} {AngularVelocity.z} ";
+            return ret;
+        }
+
+
     }
 }
 

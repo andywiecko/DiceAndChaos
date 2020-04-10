@@ -12,9 +12,11 @@ namespace DiceAndChaos
 
         private GameObject specimenGameObjectRef = null;
         private Specimen specimen = null;
-        private InitialConditions initialConditions;
+        public InitialConditions initialConditions;
 
         private ArrowViewer arrowViewer;
+
+        private bool isInSpawn = false;
 
         private void SetInitialConditions()
         {
@@ -30,6 +32,7 @@ namespace DiceAndChaos
 
         public void Spawn()
         {
+            isInSpawn = true;
             Destroy(specimenGameObjectRef);
             specimenGameObjectRef = SpecimenSpawner.Spawn(ref specimen, transform);
             SetInitialConditions();
@@ -40,22 +43,28 @@ namespace DiceAndChaos
 
         public void Roll()
         {
+            isInSpawn = false;
             SpecimenStopper.Reset();
             arrowViewer.Reset();
             SetInitialConditions();
             SpecimenRoller.Roll(specimen);
         }
 
+        public bool IsActive()
+        {
+            return specimen.IsActive;
+        }
+
         public void Rotate(float x, float y, float z)
         {
             initialConditions.Rotation = Quaternion.Euler(x, y, z);
-            if (!specimen.IsActive) SetInitialConditions();
+            if (!specimen.IsActive && isInSpawn) SetInitialConditions();
         }
 
         public void SetVelocity(float x, float y, float z)
         {
             initialConditions.Velocity = new Vector3(x, y, z);
-            if (!specimen.IsActive)
+            if (!specimen.IsActive && isInSpawn)
             {
                 SetInitialConditions();
                 arrowViewer.SetVelocityArrow(initialConditions.Velocity);
@@ -65,7 +74,7 @@ namespace DiceAndChaos
         public void SetAngularVelocity(float x, float y, float z)
         {
             initialConditions.AngularVelocity = new Vector3(x, y, z);
-            if (!specimen.IsActive)
+            if (!specimen.IsActive && isInSpawn)
             {
                 SetInitialConditions();
                 arrowViewer.SetAngularVelocityArrow(initialConditions.AngularVelocity);
@@ -74,7 +83,10 @@ namespace DiceAndChaos
 
         void Update()
         {
-            SpecimenStopper.IsStopped(specimen);
+            if(SpecimenStopper.IsStopped(specimen))
+            {
+                specimen.IsActive = false;
+            }
         }
 
     }

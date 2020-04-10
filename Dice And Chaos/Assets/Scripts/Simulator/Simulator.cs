@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,35 +15,11 @@ namespace DiceAndChaos
 
         public List<FieldsHandler> fieldsHandlers;
 
+        private ParametersUnpacker parametersUnpacker;
+
         private void Start()
         {
-            ParameterRange vxRange = new ParameterRange(0.0f, 0.5f, 1.0f);
-            ParameterRange vyRange = new ParameterRange(0.0f, 0.5f, 1.0f);
-            ParameterRange vzRange = new ParameterRange(0.0f, 0.5f, 1.0f);
-
-            List<ParameterRange> ranges = new List<ParameterRange>
-            {
-                vxRange,
-                vyRange,
-                vzRange
-            };
-
-            Parameters parameters = new Parameters(ranges);
-
-            string log = "\n";
-            foreach (List<float> current in parameters)
-            {
-                string row = "";
-                foreach (float value in current)
-                {
-                    row += value.ToString() + "\t";
-                }
-                log += row + "\n";
-            }
-
-
-            Debug.Log(log);
-
+            parametersUnpacker = GetComponent<ParametersUnpacker>();
         }
 
         void ParseField(FieldsHandler fieldsHandler,
@@ -56,27 +33,21 @@ namespace DiceAndChaos
         public void Simulate()
         {
 
-            List<ParametersRangeTuple> parameterRangeTuples = new List<ParametersRangeTuple>();
+            var parameterRangeTuples = new List<ParametersRangeTuple>();
+            var fieldTypes = new List<FieldsHandler.Type>();
 
             foreach (var fields in fieldsHandlers)
                 ParseField(fields, parameterRangeTuples);
 
-
-            List<ParameterRange> parameterRanges = new List<ParameterRange>();
+            foreach (var tuple in parameterRangeTuples)
+                fieldTypes.Add(tuple.Item1);
 
             Parameters parameters = new Parameters(parameterRangeTuples);
+            parametersUnpacker.StartUnpacking(parameters, fieldTypes);
 
-            string log = "\n";
-            foreach (List<float> current in parameters)
-            {
-                string row = "";
-                foreach (float value in current)
-                {
-                    row += value.ToString() + "\t";
-                }
-                log += row + "\n";
-            }
-            Debug.Log(log);
+
+
+
 
         }
 

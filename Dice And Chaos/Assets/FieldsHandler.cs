@@ -8,7 +8,12 @@ namespace DiceAndChaos
 
     public class FieldsHandler : MonoBehaviour
     {
-        public enum Type { RotX, RotY, RotZ };
+        public enum Type
+        {
+            RotX, RotY, RotZ,
+            VelX, VelY, VelZ,
+            AngVelX, AngVelY, AngVelZ
+        };
 
         public Type type;
 

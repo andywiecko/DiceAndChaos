@@ -14,7 +14,7 @@ namespace DiceAndChaos
             messageRecived = false;
         }
 
-        public static void IsStopped(Specimen specimen)
+        public static bool IsStopped(Specimen specimen)
         {
             Rigidbody rb = specimen.Rigidbody;
             if (rb.velocity == Vector3.zero && !messageRecived)
@@ -23,8 +23,9 @@ namespace DiceAndChaos
                 messageRecived = true;
                 string maxname = FindHighestFace(specimen.GameObject.transform);
                 Debug.Log($"You roll { maxname }!");
-
+                return true;
             }
+            return false;
         }
 
         private static string FindHighestFace(Transform transform)

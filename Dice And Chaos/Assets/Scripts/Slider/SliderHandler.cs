@@ -23,7 +23,27 @@ namespace DiceAndChaos
         public Slider angVelYSlider;
         public Slider angVelZSlider;
 
+        //List<Slider> sliders;
+
         private GameController gameController;
+
+        public void Reset()
+        {
+            // TODO move all these to List<Slider> sliders
+            rotXSlider.SetValueWithoutNotify(0f);
+            rotYSlider.SetValueWithoutNotify(0f);
+            rotZSlider.SetValueWithoutNotify(0f);
+
+            velXSlider.SetValueWithoutNotify(0f);
+            velYSlider.SetValueWithoutNotify(0f);
+            velZSlider.SetValueWithoutNotify(0f);
+
+            angVelXSlider.SetValueWithoutNotify(0f);
+            angVelYSlider.SetValueWithoutNotify(0f);
+            angVelZSlider.SetValueWithoutNotify(0f);
+
+            SetSliders();
+        }
 
         private void Start()
         {
