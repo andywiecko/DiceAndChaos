@@ -9,18 +9,28 @@ namespace DiceAndChaos
 
     public class Logger
     {
-        public static void Save(string content)
+
+        public static string path;
+
+        private static void ResetPath()
         {
-            string path = "DiceAndChaos_Simulation_";
+            path = "DiceAndChaos_Simulation_";
             string now = DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss");
             path += now + ".txt";
-            Debug.Log(path);
+        }
+
+        public static void CreateLogfile()
+        {
+            ResetPath();
+            Save(InitialConditions.ToStringHeader());
+        }
 
 
-            //Write some text to the test.txt file
-            //StreamWriter writer = new StreamWriter(path, true);
-            //writer.WriteLine(content);
-            //writer.Close();
+        public static void Save(string content)
+        {
+            StreamWriter writer = new StreamWriter(path, true);
+            writer.WriteLine(content);
+            writer.Close();
         }
     }
 }

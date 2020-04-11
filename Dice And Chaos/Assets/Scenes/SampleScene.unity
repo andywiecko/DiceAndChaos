@@ -2076,6 +2076,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 485279204}
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 485279207}
         m_MethodName: Simulate
         m_Mode: 1
@@ -4446,7 +4457,7 @@ GameObject:
   - component: {fileID: 458443443}
   - component: {fileID: 458443442}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Logfile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4858,6 +4869,11 @@ MonoBehaviour:
   - {fileID: 547199789}
   - {fileID: 1248746027}
   - {fileID: 126127649}
+  - {fileID: 1591977768}
+  - {fileID: 799119170}
+  - {fileID: 31283885}
+  - {fileID: 672235406}
+  - {fileID: 1376406053}
 --- !u!114 &485279208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14265,7 +14281,7 @@ GameObject:
   - component: {fileID: 1341254345}
   - component: {fileID: 1341254344}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Result
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

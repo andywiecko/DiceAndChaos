@@ -32,7 +32,6 @@ namespace DiceAndChaos
 
         public void Simulate()
         {
-
             var parameterRangeTuples = new List<ParametersRangeTuple>();
             var fieldTypes = new List<FieldsHandler.Type>();
 
@@ -43,6 +42,7 @@ namespace DiceAndChaos
                 fieldTypes.Add(tuple.Item1);
 
             Parameters parameters = new Parameters(parameterRangeTuples);
+            Logger.CreateLogfile();
             parametersUnpacker.StartUnpacking(parameters, fieldTypes);
 
         }

@@ -17,13 +17,15 @@ namespace DiceAndChaos
             gameController = GetComponent<GameController>();
         }
 
-        IEnumerator IERoll()
+        IEnumerator IERoll(object[] parms)
         {
+            InitialConditions init = (InitialConditions)parms[0];
+            gameController.initialConditions = init;
             gameController.Roll();
             readyForRun = false;
             yield return new WaitUntil(() => !gameController.IsActive());
-            Debug.Log(gameController.initialConditions + gameController.Result);
-            Logger.Save(gameController.initialConditions + gameController.Result);
+            Debug.Log(init + gameController.Result);
+            Logger.Save(init + gameController.Result);
             readyForRun = true;
         }
 
@@ -50,12 +52,10 @@ namespace DiceAndChaos
                     var value = item.Item2;
                     InitialConditionSwitcher.SwitchFields(type, value, ref initialConditions);
                 }
-                gameController.initialConditions = initialConditions;
 
+                object[] rollParms = new object[1] { initialConditions };
+                StartCoroutine("IERoll", rollParms);
                 yield return new WaitUntil(() => readyForRun);
-                StartCoroutine("IERoll");
-                //Debug.Log(initialConditions);
-
             }
         }
     }
