@@ -45,10 +45,6 @@ namespace DiceAndChaos
             Parameters parameters = new Parameters(parameterRangeTuples);
             parametersUnpacker.StartUnpacking(parameters, fieldTypes);
 
-
-
-
-
         }
 
 

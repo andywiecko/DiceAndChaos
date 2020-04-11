@@ -23,6 +23,7 @@ namespace DiceAndChaos
             readyForRun = false;
             yield return new WaitUntil(() => !gameController.IsActive());
             Debug.Log(gameController.initialConditions + gameController.Result);
+            Logger.Save(gameController.initialConditions + gameController.Result);
             readyForRun = true;
         }
 

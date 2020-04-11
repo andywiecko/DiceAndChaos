@@ -15,6 +15,7 @@ namespace DiceAndChaos
         public InitialConditions initialConditions;
 
         private ArrowViewer arrowViewer;
+        private LabelHandler labelHandler;
 
         private bool isInSpawn = false;
         public string Result { get; set; } = "";
@@ -27,6 +28,7 @@ namespace DiceAndChaos
         public void Start()
         {
             arrowViewer = GetComponent<ArrowViewer>();
+            labelHandler = GetComponent<LabelHandler>();
             specimen = new Specimen(specimenGameObject);
             initialConditions = new InitialConditions() { Position = transform.position };
         }
@@ -90,6 +92,7 @@ namespace DiceAndChaos
             if(SpecimenStopper.IsStopped(specimen))
             {
                 Result = SpecimenStopper.GetTheResult(specimen);
+                labelHandler.ShowResult(Result);
                 specimen.IsActive = false;
             }
         }

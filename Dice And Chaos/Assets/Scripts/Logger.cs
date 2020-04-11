@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -10,14 +11,16 @@ namespace DiceAndChaos
     {
         public static void Save(string content)
         {
-            //string path = Application.persistentDataPath + "/test.txt";
-            string path = "test123.txt";
+            string path = "DiceAndChaos_Simulation_";
+            string now = DateTime.Now.ToString("yyyy-dd-M-HH-mm-ss");
+            path += now + ".txt";
+            Debug.Log(path);
 
-            //Debug.Log(path);
+
             //Write some text to the test.txt file
-            StreamWriter writer = new StreamWriter(path, true);
-            writer.WriteLine(content);
-            writer.Close();
+            //StreamWriter writer = new StreamWriter(path, true);
+            //writer.WriteLine(content);
+            //writer.Close();
         }
     }
 }
