@@ -22,10 +22,24 @@ namespace DiceAndChaos
             labelHandler = GetComponent<LabelHandler>();
         }
 
+        public void PrepareForUnpacking()
+        {
+            uiLocker.Lock();
+            labelHandler.ShowPath();
+
+            Time.maximumParticleDeltaTime = 0.03f;
+            Time.timeScale = 100f;
+            Time.maximumDeltaTime = 0.01f;
+        }
+
         public void Reset()
         {
             uiLocker.Unlock();
             labelHandler.HidePath();
+
+            Time.maximumParticleDeltaTime = 0.03f;
+            Time.timeScale = 1f;
+            Time.maximumDeltaTime = 0.01f;
         }
 
         IEnumerator IERoll(object[] parms)
@@ -49,10 +63,11 @@ namespace DiceAndChaos
 
         IEnumerator Unpack(object[] parms)
         {
-            uiLocker.Lock();
-            labelHandler.ShowPath();
             Parameters parameters = (Parameters)parms[0];
             List<FieldsHandler.Type> fieldTypes = (List<FieldsHandler.Type>)parms[1];
+
+            PrepareForUnpacking();
+
             foreach (List<float> parameter in parameters)
             {
                 InitialConditions initialConditions = gameController.initialConditions;
@@ -69,6 +84,7 @@ namespace DiceAndChaos
                 StartCoroutine("IERoll", rollParms);
                 yield return new WaitUntil(() => readyForRun);
             }
+
             Reset();
         }
     }

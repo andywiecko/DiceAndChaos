@@ -13,6 +13,7 @@ namespace DiceAndChaos
         public List<Button> buttons;
         public List<Toggle> toggles;
         public List<Dropdown> dropdowns;
+        public List<FieldsHandler> fieldsHandlers;
 
         public void Lock()
         {
@@ -24,6 +25,8 @@ namespace DiceAndChaos
                 togle.interactable = false;
             foreach (var dropdown in dropdowns)
                 dropdown.interactable = false;
+            foreach (var fieldsHandler in fieldsHandlers)
+                fieldsHandler.Lock();
         }
 
         public void Unlock()
@@ -36,6 +39,8 @@ namespace DiceAndChaos
                 togle.interactable = true;
             foreach (var dropdown in dropdowns)
                 dropdown.interactable = true;
+            foreach (var fieldsHandler in fieldsHandlers)
+                fieldsHandler.Unlock();
         }
 
 

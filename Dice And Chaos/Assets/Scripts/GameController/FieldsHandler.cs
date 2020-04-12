@@ -38,6 +38,19 @@ namespace DiceAndChaos
             return false;
         }
 
+        public void Lock()
+        {
+            startField.interactable = false;
+            stepField.interactable = false;
+            stopField.interactable = false;
+        }
+
+        public void Unlock()
+        {
+            startField.interactable = true;
+            stepField.interactable = true;
+            stopField.interactable = true;
+        }
 
     }
 
