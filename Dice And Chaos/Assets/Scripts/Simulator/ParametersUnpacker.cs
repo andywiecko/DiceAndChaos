@@ -9,12 +9,23 @@ namespace DiceAndChaos
 
     public class ParametersUnpacker : MonoBehaviour
     {
+        bool readyForRun = true;
 
-        static private GameController gameController;
+        private GameController gameController;
+        private UILocker uiLocker;
+        private LabelHandler labelHandler;
 
         private void Start()
         {
             gameController = GetComponent<GameController>();
+            uiLocker = GetComponent<UILocker>();
+            labelHandler = GetComponent<LabelHandler>();
+        }
+
+        public void Reset()
+        {
+            uiLocker.Unlock();
+            labelHandler.HidePath();
         }
 
         IEnumerator IERoll(object[] parms)
@@ -35,10 +46,11 @@ namespace DiceAndChaos
             StartCoroutine("Unpack", parms);
         }
 
-        bool readyForRun = true;
 
         IEnumerator Unpack(object[] parms)
         {
+            uiLocker.Lock();
+            labelHandler.ShowPath();
             Parameters parameters = (Parameters)parms[0];
             List<FieldsHandler.Type> fieldTypes = (List<FieldsHandler.Type>)parms[1];
             foreach (List<float> parameter in parameters)
@@ -57,6 +69,7 @@ namespace DiceAndChaos
                 StartCoroutine("IERoll", rollParms);
                 yield return new WaitUntil(() => readyForRun);
             }
+            Reset();
         }
     }
 

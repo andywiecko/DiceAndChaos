@@ -4780,6 +4780,7 @@ GameObject:
   - component: {fileID: 485279207}
   - component: {fileID: 485279208}
   - component: {fileID: 485279209}
+  - component: {fileID: 485279210}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -4898,7 +4899,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a2fb4b4bc9c4f4f80954844bd28079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: {fileID: 1341254342}
+  resultLabel: {fileID: 1341254342}
+  pathLabel: {fileID: 458443440}
+--- !u!114 &485279210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485279202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4596fb9ff5b3ed449d988d173c52808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliders:
+  - {fileID: 142474998}
+  - {fileID: 512597712}
+  - {fileID: 1826440813}
+  - {fileID: 1656254362}
+  - {fileID: 337817865}
+  - {fileID: 560991574}
+  - {fileID: 1106037880}
+  - {fileID: 1220902350}
+  - {fileID: 142627428}
+  buttons:
+  - {fileID: 2068306156}
+  - {fileID: 660377287}
+  - {fileID: 2140332381}
+  - {fileID: 223588826}
+  toggles:
+  - {fileID: 473480065}
+  - {fileID: 1763478587}
+  - {fileID: 1808970777}
+  - {fileID: 1189018399}
+  - {fileID: 790268473}
+  - {fileID: 512382149}
+  - {fileID: 1619757607}
+  - {fileID: 2100194729}
+  - {fileID: 966244340}
+  dropdowns:
+  - {fileID: 525717380}
 --- !u!1 &508333945
 GameObject:
   m_ObjectHideFlags: 0
@@ -5388,11 +5429,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: K6 Dice
       m_Image: {fileID: 0}
-    - m_Text: Option B
+    - m_Text: K12 Dice (TODO)
       m_Image: {fileID: 0}
-    - m_Text: Option C
+    - m_Text: K20 Dice (TODO)
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5508,7 +5549,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option A
+  m_Text: K6 Dice
 --- !u!222 &534195921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19544,7 +19585,7 @@ GameObject:
   - component: {fileID: 1826440812}
   - component: {fileID: 1826440811}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: RotZSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22298,7 +22339,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075701006}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 485279207}
+        m_MethodName: StopSimulation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2075701006

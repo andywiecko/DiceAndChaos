@@ -17,6 +17,7 @@ namespace DiceAndChaos
 
         private ParametersUnpacker parametersUnpacker;
 
+
         private void Start()
         {
             parametersUnpacker = GetComponent<ParametersUnpacker>();
@@ -32,6 +33,7 @@ namespace DiceAndChaos
 
         public void Simulate()
         {
+            StopSimulation();
             var parameterRangeTuples = new List<ParametersRangeTuple>();
             var fieldTypes = new List<FieldsHandler.Type>();
 
@@ -44,9 +46,13 @@ namespace DiceAndChaos
             Parameters parameters = new Parameters(parameterRangeTuples);
             Logger.CreateLogfile();
             parametersUnpacker.StartUnpacking(parameters, fieldTypes);
-
         }
 
+        public void StopSimulation()
+        {
+            parametersUnpacker.Reset();
+            parametersUnpacker.StopAllCoroutines();
+        }
 
     }
 
