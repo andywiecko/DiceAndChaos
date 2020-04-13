@@ -29,6 +29,8 @@ OX and OY axis coresponds to different initial conditions and pixel color repres
 
 ![Result 01](img/Result01.png)
 
+![Result 02](img/Result02.png)
+
 ## TODO
 
 - Implement different dice
