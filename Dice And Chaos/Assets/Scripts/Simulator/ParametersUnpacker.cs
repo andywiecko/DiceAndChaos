@@ -9,7 +9,7 @@ namespace DiceAndChaos
 
     public class ParametersUnpacker : MonoBehaviour
     {
-        int numberOfJobs;
+        int numberOfJobs = 1;
         int jobsDone = 0;
         bool readyForRun = true;
 
@@ -36,6 +36,8 @@ namespace DiceAndChaos
 
         public void Reset()
         {
+            jobsDone = 0;
+            labelHandler.UpdateJobs(JobsStatus());
             uiLocker.Unlock();
             labelHandler.HidePath();
 

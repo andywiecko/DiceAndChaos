@@ -22,7 +22,7 @@ namespace DiceAndChaos
             start = _start - _step;
             stop = _stop;
             step = _step;
-            Count = (int)((stop - start) / step);
+            Count = (int)Math.Ceiling((stop - start) / step);
             enumerator = new ParameterRangeEnumerator(_start, _step, _stop);
         }
 
