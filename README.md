@@ -1,5 +1,14 @@
 # DiceAndChaos
 
+## Table of contents
+
+- [DiceAndChaos](#diceandchaos)
+  - [Table of contents](#table-of-contents)
+  - [Builds](#builds)
+  - [Preview](#preview)
+  - [Gallery](#gallery)
+  - [TODO](#todo)
+
 It is the common fact that chaotic behavior can emerge in classical physics. In the repository, one can find a simulator of the rolling dice using Unity game physics. Users can change initial conditions for each roll.
 
 ## Builds
