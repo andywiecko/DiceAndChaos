@@ -5362,6 +5362,7 @@ GameObject:
   - component: {fileID: 525717382}
   - component: {fileID: 525717381}
   - component: {fileID: 525717380}
+  - component: {fileID: 525717383}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -5439,15 +5440,26 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: K6 Dice
+    - m_Text: D6 Dice
       m_Image: {fileID: 0}
-    - m_Text: K12 Dice (TODO)
+    - m_Text: D12 Dice (NOT IMPLEMENTED)
       m_Image: {fileID: 0}
-    - m_Text: K20 Dice (TODO)
+    - m_Text: D20 Dice (NOT IMPLEMENTED)
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 525717383}
+        m_MethodName: SelectSpecimen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Dropdown+DropdownEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_AlphaFadeSpeed: 0.15
@@ -5489,6 +5501,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525717378}
   m_CullTransparentMesh: 0
+--- !u!114 &525717383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525717378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6e08f7ce4607749b0cfd606ffaa45b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 485279204}
+  D6: {fileID: 3242797338500437797, guid: 2c566313098daf444a6d48133ee98061, type: 3}
+  D12: {fileID: 0}
 --- !u!1 &534195918
 GameObject:
   m_ObjectHideFlags: 0
@@ -5557,9 +5584,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: K6 Dice
+  m_Text: D6 Dice
 --- !u!222 &534195921
 CanvasRenderer:
   m_ObjectHideFlags: 0

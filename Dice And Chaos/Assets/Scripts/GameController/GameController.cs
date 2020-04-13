@@ -37,6 +37,7 @@ namespace DiceAndChaos
         {
             isInSpawn = true;
             Destroy(specimenGameObjectRef);
+            specimen = new Specimen(specimenGameObject);
             specimenGameObjectRef = SpecimenSpawner.Spawn(ref specimen, transform);
             SetInitialConditions();
             arrowViewer.SetArrowsActive(true);

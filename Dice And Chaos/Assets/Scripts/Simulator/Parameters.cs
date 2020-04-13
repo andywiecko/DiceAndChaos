@@ -9,12 +9,24 @@ namespace DiceAndChaos
 
     public class Parameters : IEnumerable
     {
+        private int count = 1;
+        public int Count { get => count; set => count = value; }
 
         private readonly List<ParameterRange> parameterRanges;
 
         public Parameters(List<ParameterRange> _parameterRanges)
         {
             parameterRanges = _parameterRanges;
+            SetCount();
+        }
+
+        private void SetCount()
+        {
+            Count = 1;            
+            foreach (var range in parameterRanges)
+            {
+                Count *= range.Count;
+            }
         }
 
         public Parameters(List<ParametersRangeTuple> tuples)
@@ -25,6 +37,7 @@ namespace DiceAndChaos
                 _parameterRanges.Add(tuple.Item2);
             }
             parameterRanges = _parameterRanges;
+            SetCount();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

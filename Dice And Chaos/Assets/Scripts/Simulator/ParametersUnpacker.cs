@@ -9,6 +9,8 @@ namespace DiceAndChaos
 
     public class ParametersUnpacker : MonoBehaviour
     {
+        int numberOfJobs;
+        int jobsDone = 0;
         bool readyForRun = true;
 
         private GameController gameController;
@@ -51,7 +53,14 @@ namespace DiceAndChaos
             yield return new WaitUntil(() => !gameController.IsActive());
             Debug.Log(init + gameController.Result);
             Logger.Save(init + gameController.Result);
+            JobDone();
+            labelHandler.UpdateJobs(JobsStatus());
+        }
+
+        void JobDone()
+        {
             readyForRun = true;
+            jobsDone++;
         }
 
         public void StartUnpacking(Parameters parameters, List<FieldsHandler.Type> fieldTypes)
@@ -60,10 +69,16 @@ namespace DiceAndChaos
             StartCoroutine("Unpack", parms);
         }
 
+        float JobsStatus()
+        {
+            return (float)jobsDone / (float)numberOfJobs;
+        }
+
 
         IEnumerator Unpack(object[] parms)
         {
             Parameters parameters = (Parameters)parms[0];
+            numberOfJobs = parameters.Count;
             List<FieldsHandler.Type> fieldTypes = (List<FieldsHandler.Type>)parms[1];
 
             PrepareForUnpacking();
@@ -83,6 +98,7 @@ namespace DiceAndChaos
                 object[] rollParms = new object[1] { initialConditions };
                 StartCoroutine("IERoll", rollParms);
                 yield return new WaitUntil(() => readyForRun);
+
             }
 
             Reset();
