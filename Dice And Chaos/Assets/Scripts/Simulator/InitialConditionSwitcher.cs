@@ -9,7 +9,7 @@ namespace DiceAndChaos
     {
         static public void SwitchFields(FieldsHandler.Type type, float  value, ref InitialConditions initialConditions)
         {
-            Vector3 rotation = initialConditions.Rotation.eulerAngles;
+            Vector3 rotation = initialConditions.RotationVector;
             Vector3 velocity = initialConditions.Velocity;
             Vector3 angularVelocity = initialConditions.AngularVelocity;
 
@@ -49,7 +49,7 @@ namespace DiceAndChaos
                     break;
             }
 
-            initialConditions.Rotation = Quaternion.Euler(rotation);
+            initialConditions.RotationVector = rotation;
             initialConditions.Velocity = velocity;
             initialConditions.AngularVelocity = angularVelocity;
             //Debug.Log(initialConditions.ToString());

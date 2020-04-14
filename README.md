@@ -13,7 +13,7 @@ It is the common fact that chaotic behavior can emerge in classical physics. In 
 
 ## Builds
 
-- Download Windows Build
+- [**Download Windows Build**](https://github.com/andywiecko/DiceAndChaos/releases/download/v1.0/v1-0.zip)
 
 ## Preview
 
