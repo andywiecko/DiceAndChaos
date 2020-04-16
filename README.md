@@ -9,7 +9,7 @@
   - [Gallery](#gallery)
   - [TODO](#todo)
 
-It is the common fact that chaotic behavior can emerge in classical physics. In the repository, one can find a simulator of the rolling dice using Unity game physics. Users can change initial conditions for each roll.
+It is the common fact that chaotic behavior can emerge in classical physics. In the repository, one can find a simulator of the rolling dice using Unity game physics. Users can change initial conditions for each roll or set parameters range for simulation.
 
 ## Builds
 
@@ -30,6 +30,8 @@ OX and OY axis coresponds to different initial conditions and pixel color repres
 ![Result 01](img/Result01.png)
 
 ![Result 02](img/Result02.png)
+
+![Result 03](img/Result03.png)
 
 ## TODO
 
