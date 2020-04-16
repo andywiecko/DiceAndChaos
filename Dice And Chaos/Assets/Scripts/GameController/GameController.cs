@@ -62,7 +62,7 @@ namespace DiceAndChaos
 
         public void Rotate(float x, float y, float z)
         {
-            initialConditions.Rotation = Quaternion.Euler(x, y, z);
+            initialConditions.RotationVector = new Vector3(x, y, z);
             if (!specimen.IsActive && isInSpawn) SetInitialConditions();
         }
 
